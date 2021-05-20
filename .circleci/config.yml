@@ -1,17 +1,13 @@
-Resources:
-Ec2Instance:
- Type: 'AWS::EC2::Instance'
- Properties:
-   SecurityGroups:
-     - !Ref InstanceSecurityGroup
-   KeyName: udacity
-   ImageId: 'ami-068663a3c619dd892' # you may need to find out what instance types are available in your region - use https://cloud-images.ubuntu.com/locator/ec2/
-InstanceSecurityGroup:
- Type: 'AWS::EC2::SecurityGroup'
- Properties:
-   GroupDescription: Enable SSH access via port 22
-   SecurityGroupIngress:
-     - IpProtocol: tcp
-       FromPort: '22'
-       ToPort: '22'
-       CidrIp: 0.0.0.0/0
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Use a package of configuration called an orb.
+orbs:
+  # Declare a dependency on the welcome-orb
+  welcome: circleci/welcome-orb@0.4.1
+# Orchestrate or schedule a set of jobs
+workflows:
+  # Name the workflow "welcome"
+  welcome:
+    # Run the welcome/run job in its own container
+    jobs:
+      - welcome/run
